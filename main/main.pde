@@ -1,16 +1,16 @@
 Pattern pattern;
-Pattern tess_pattern;
 
 int cell_width = 10;
 int cell_spacing = 2;
 int pattern_size = 5;
-int pattern_repeat = 10;
+int pattern_repeat = 5;
 
+// these calcs could be cleaned up
 int win_height = cell_spacing + ((cell_width + cell_spacing) * pattern_size) * pattern_repeat;
 int win_width = ((cell_width + (cell_spacing * 2)) * pattern_size) + ((cell_width + cell_spacing) * pattern_size) * pattern_repeat;
 
 void settings() {
-  size(win_width, win_height);
+  size(win_width , win_height);
 }
 
 void setup() {
@@ -19,20 +19,19 @@ void setup() {
   }
 
   pattern = new Pattern();
-  tess_pattern = new Pattern();
 
   // Add rotate button
   // pattern_size * (cell_width + cell_spacing) - cell_spacing works for rect length but not elegant
   fill(255);
   rect(cell_spacing, (cell_width + (cell_spacing * 2)) * pattern_size, pattern_size * (cell_width + cell_spacing) - cell_spacing, 20);
   fill(30);
-  text("rotate 90", cell_spacing * 2, (cell_width + (cell_spacing * 3.5)) * pattern_size);
+  text("rotate 90", cell_spacing * 2, 12 + (cell_width + (cell_spacing * 2)) * pattern_size);
 
   // Add clear button
   fill(255);
   rect(cell_spacing, (cell_width + (cell_spacing * 5)) * pattern_size, pattern_size * (cell_width + cell_spacing) - cell_spacing, 20);
   fill(30);
-  text("clear", cell_spacing * 2, (cell_width + (cell_spacing * 6.5)) * pattern_size);
+  text("clear", cell_spacing * 2, 12 + (cell_width + (cell_spacing * 5)) * pattern_size);
 }
 
 void draw() {
@@ -48,7 +47,7 @@ void mousePressed() {
     mouseY > cell_spacing &&
     mouseY < pattern_size * (cell_width + cell_spacing) - cell_spacing) {
     if (mouseButton == RIGHT)
-      pattern.clearCell(mouseX / (cell_width + cell_spacing), mouseY / (cell_width + cell_spacing);
+      pattern.clearCell(mouseX / (cell_width + cell_spacing), mouseY / (cell_width + cell_spacing));
     else
       pattern.toggleCell(mouseX / (cell_width + cell_spacing), mouseY / (cell_width + cell_spacing));
   }
@@ -148,7 +147,7 @@ class Pattern {
 
   void clearCell(int x, int y) {
     if (x >= 0 && x < pattern_size && y >= 0 && y < pattern_size) {
-      cells[x][y].clear();
+      cells[x][y].reset();
     }
   }
 
